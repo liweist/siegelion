@@ -1,12 +1,12 @@
 <?php
-namespace System\Core;
+namespace Siegelion\System\Core;
 
-use System\Exception\ClassDoesNotExistException;
-use System\Exception\MethodDoesNotExistException;
+use Siegelion\System\Exception\ClassDoesNotExistException;
+use Siegelion\System\Exception\MethodDoesNotExistException;
 
 class Hook
 {
-    public static function load($sClass, $sNamespace = 'System')
+    public static function load($sClass, $sNamespace = 'Siegelion\System')
     {
         try {
             $_sNamespace = $sNamespace.'\Hook\\'.$sClass;

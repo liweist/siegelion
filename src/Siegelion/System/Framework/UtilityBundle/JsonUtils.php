@@ -1,5 +1,5 @@
 <?php
-namespace System\Framework\UtilityBundle;
+namespace Siegelion\System\Framework\UtilityBundle;
 
 class JsonUtils
 {

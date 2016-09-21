@@ -1,3 +1,5 @@
 {
-    "crossOriginSubdomain": "api"
+    "response": {
+        "crossOriginDomain": "http://api.fw2.local"
+    }
 }

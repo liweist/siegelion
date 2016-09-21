@@ -1,12 +1,12 @@
 <?php
-namespace Application\Www;
+namespace Siegelion\Application\Www;
 
-use System\Framework\BaseBundle\AppKernel;
-use System\Framework\BaseBundle\AppInterface;
-use System\Core\Router;
-use System\Core\Service;
-use Service\Security\Sso\Authorization;
-use Service\Security\Sso\UserAccessControl;
+use Siegelion\System\Framework\BaseBundle\AppKernel;
+use Siegelion\System\Framework\BaseBundle\AppInterface;
+use Siegelion\System\Core\Router;
+use Siegelion\System\Core\Service;
+use Siegelion\Service\Security\Sso\Authorization;
+use Siegelion\Service\Security\Sso\UserAccessControl;
 
 class App extends AppKernel implements AppInterface
 {
@@ -15,10 +15,10 @@ class App extends AppKernel implements AppInterface
         $oAuth = new Authorization();
         $oUserAccessControl = new UserAccessControl();
         if ($oAuth->isRegisteredUser()) {
+            Router::setDelegate('/', 'home');
             if ($oUserAccessControl->isAdmin()) {
                 Router::setDelegate('/', 'homeAdmin');
             }
-            Router::setDelegate('/', 'home');
         } else {
             Router::setDelegate('/', 'login');
         }

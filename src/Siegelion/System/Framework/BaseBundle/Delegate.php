@@ -1,8 +1,8 @@
 <?php
-namespace System\Framework\BaseBundle;
+namespace Siegelion\System\Framework\BaseBundle;
 
-use System\Framework\UtilityBundle\StringUtils;
-use System\Exception\FileDoesNotExistException;
+use Siegelion\System\Framework\UtilityBundle\StringUtils;
+use Siegelion\System\Exception\FileDoesNotExistException;
 
 class Delegate
 {

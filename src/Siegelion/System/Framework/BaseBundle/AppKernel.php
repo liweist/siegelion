@@ -1,8 +1,8 @@
 <?php
-namespace System\Framework\BaseBundle;
+namespace Siegelion\System\Framework\BaseBundle;
 
-use System\Core\Router;
-use System\Utility\StringUtil;
+use Siegelion\System\Core\Router;
+use Siegelion\System\Utility\StringUtil;
 
 class AppKernel
 {

@@ -1,8 +1,8 @@
 <?php
-namespace System\Hook;
+namespace Siegelion\System\Hook;
 
-use System\Framework\BaseBundle\AbstrackHook;
-use System\Core\Exception;
+use Siegelion\System\Framework\BaseBundle\AbstrackHook;
+use Siegelion\System\Core\Exception;
 
 class PreRuntimeKernel extends AbstrackHook 
 {

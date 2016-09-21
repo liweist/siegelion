@@ -1,5 +1,5 @@
 <?php
-namespace System\Core;
+namespace Siegelion\System\Core;
 
 class Router
 {

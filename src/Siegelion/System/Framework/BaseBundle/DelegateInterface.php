@@ -1,5 +1,5 @@
 <?php
-namespace System\Framework\BaseBundle;
+namespace Siegelion\System\Framework\BaseBundle;
 
 interface DelegateInterface
 {

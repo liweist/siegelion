@@ -1,19 +1,22 @@
 {
     "name": "routing",
     "version": "1.0",
-    "apps": {
-        "Www": {
-            "defaultDelegate": "Home",
-            "view": {
-                "theme": "default",
-                "baseHtml": "base.html"
-            }
-        },
-        "Api": {
-            "defaultDelegate": "Home",
-            "view": {
-                "theme": "default",
-                "baseHtml": "base.html"
+    "routing": {
+        "defaultApp": "Www",
+        "apps": {
+            "Www": {
+                "defaultDelegate": "Home",
+                "view": {
+                    "theme": "default",
+                    "baseHtml": "base.html"
+                }
+            },
+            "Api": {
+                "defaultDelegate": "Home",
+                "view": {
+                    "theme": "default",
+                    "baseHtml": "base.html"
+                }
             }
         }
     }

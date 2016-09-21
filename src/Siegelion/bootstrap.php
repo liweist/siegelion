@@ -1,4 +1,7 @@
 <?php
+namespace Siegelion;
+
+define('VERSION', '3.1.0');
 
 define('PATH_ROOT', __DIR__);
 

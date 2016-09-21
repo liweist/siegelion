@@ -1,7 +1,7 @@
 <?php
-namespace System\Hook;
+namespace Siegelion\System\Hook;
 
-use System\Framework\BaseBundle\AbstrackHook;
+use Siegelion\System\Framework\BaseBundle\AbstrackHook;
 
 class PostRuntimeKernel extends AbstrackHook 
 {

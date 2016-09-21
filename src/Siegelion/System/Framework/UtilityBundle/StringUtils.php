@@ -1,7 +1,7 @@
 <?php
-namespace System\Framework\UtilityBundle;
+namespace Siegelion\System\Framework\UtilityBundle;
 
-use System\Exception\FileDoesNotExistException;
+use Siegelion\System\Exception\FileDoesNotExistException;
 
 class StringUtils 
 {

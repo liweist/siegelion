@@ -1,5 +1,5 @@
 <?php
-namespace System\Framework\HttpBundle;
+namespace Siegelion\System\Framework\HttpBundle;
 
 class RequestParser 
 {

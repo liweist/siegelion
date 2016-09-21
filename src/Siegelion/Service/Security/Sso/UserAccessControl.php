@@ -1,10 +1,10 @@
 <?php
-namespace Service\Security\Sso;
+namespace Siegelion\Service\Security\Sso;
 
 class UserAccessControl
 {
     public function isAdmin()
     {
-        return false;
+        return true;
     }
 }

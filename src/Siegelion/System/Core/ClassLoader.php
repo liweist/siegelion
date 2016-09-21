@@ -1,13 +1,11 @@
 <?php
-namespace System\Core;
+namespace Siegelion\System\Core;
 
 class ClassLoader
 {
     public function loadClass($sClass)
     {
-        $prefix = 'Siegelion';
-
-        $sFilepath = PATH_ROOT.'/../'.str_replace('\\', '/', $prefix.'\\'.$sClass).'.php';
+        $sFilepath = PATH_ROOT.'/../'.str_replace('\\', '/', $sClass).'.php';
         if (file_exists($sFilepath)) {
             require $sFilepath;
         }

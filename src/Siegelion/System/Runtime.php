@@ -1,9 +1,9 @@
 <?php
-namespace System;
+namespace Siegelion\System;
 
-use System\Core\ClassLoader;
-use System\Core\Kernel;
-use System\Core\Hook;
+use Siegelion\System\Core\ClassLoader;
+use Siegelion\System\Core\Kernel;
+use Siegelion\System\Core\Hook;
 
 //Autoload
 require PATH_SYS.'Core/ClassLoader.php';

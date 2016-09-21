@@ -1,5 +1,5 @@
 <?php
-namespace System\Exception;
+namespace Siegelion\System\Exception;
 
 class MethodDoesNotExistException extends \Exception
 {

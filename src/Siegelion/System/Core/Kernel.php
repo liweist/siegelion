@@ -1,9 +1,10 @@
 <?php
-namespace System\Core;
+namespace Siegelion\System\Core;
 
-use System\Framework\HttpBundle\RequestParser;
-use System\Framework\UtilityBundle\JsonUtils;
-use System\Framework\UtilityBundle\StringUtils;
+use Siegelion\System\Framework\HttpBundle\RequestParser;
+use Siegelion\System\Framework\HttpBundle\Response;
+use Siegelion\System\Framework\UtilityBundle\JsonUtils;
+use Siegelion\System\Framework\UtilityBundle\StringUtils;
 
 class Kernel
 {
@@ -14,27 +15,38 @@ class Kernel
 
     public function boot()
     {
-        $this->routing();
+        $this->httpRequest();
+        $this->httpResponse();
     }
 
-    public function routing()
+    public function httpRequest()
     {
         $oRequestParser = new RequestParser();
         $aRequest = $oRequestParser->parse();
 
         $aRouting = JsonUtils::loadJson(PATH_APP.'routing.json');
         $sAppName = implode('\\', StringUtils::ucfirstStrings($aRequest['subdomain']));
-        $aApp = $aRouting['apps'][$sAppName];
 
-        $sAppPath = 'Application\\'.$sAppName.'\App';
+        if (!isset($aRouting['routing']['apps'][$sAppName])) {
+            $sAppName = $aRouting['routing']['defaultApp'];
+        }
+        $aApp = $aRouting['routing']['apps'][$sAppName];  
+        
+        $sAppPath = 'Siegelion\Application\\'.$sAppName.'\App';
         $oApp = new $sAppPath();
         $oApp->run();
 
         $aRoutes = Router::getRoutes();
         if (isset($aRoutes[$aRequest['url']])) {
-            $sDefaultDelegate = 'Application\\'.$sAppName.'\Delegate\\'.$aRoutes[$aRequest['url']];
+            $sDefaultDelegate = 'Siegelion\Application\\'.$sAppName.'\Delegate\\'.$aRoutes[$aRequest['url']];
             $delegate = new $sDefaultDelegate($sAppName, $aApp['view']);
             echo $delegate->showPage();
         }
+    }
+
+    public function httpResponse() {
+        $aHttpOptions = JsonUtils::loadJson(PATH_SYS.'Config/http.json');
+        $oResponse = new Response($aHttpOptions['response']);
+        $oResponse->headerBuilder();
     }
 }
