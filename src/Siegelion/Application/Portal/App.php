@@ -1,10 +1,9 @@
 <?php
-namespace Siegelion\Application\Www;
+namespace Siegelion\Application\Portal;
 
 use Siegelion\System\Framework\BaseBundle\AppKernel;
 use Siegelion\System\Framework\BaseBundle\AppInterface;
 use Siegelion\System\Core\Router;
-use Siegelion\System\Core\Service;
 use Siegelion\Service\Security\Sso\Authorization;
 use Siegelion\Service\Security\Sso\UserAccessControl;
 
@@ -15,12 +14,13 @@ class App extends AppKernel implements AppInterface
         $oAuth = new Authorization();
         $oUserAccessControl = new UserAccessControl();
         if ($oAuth->isRegisteredUser()) {
-            Router::setDelegate('/', 'home');
+            Router::setAction('/', 'Home');
             if ($oUserAccessControl->isAdmin()) {
-                Router::setDelegate('/', 'homeAdmin');
+                Router::setAction('/', 'HomeAdmin');
             }
         } else {
-            Router::setDelegate('/', 'login');
+            Router::setAction('/', 'Login');
         }
+        Router::setAction('/news', 'Products\ProductNews');
     }
 }

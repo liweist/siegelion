@@ -8,9 +8,11 @@ use Siegelion\System\Framework\UtilityBundle\StringUtils;
 
 class Kernel
 {
+    private $aConfig;
+
     public function __construct()
     {
-
+        $this->aConfig = JsonUtils::loadJson(PATH_CONF);
     }
 
     public function boot()
@@ -24,29 +26,28 @@ class Kernel
         $oRequestParser = new RequestParser();
         $aRequest = $oRequestParser->parse();
 
-        $aRouting = JsonUtils::loadJson(PATH_APP.'routing.json');
-        $sAppName = implode('\\', StringUtils::ucfirstStrings($aRequest['subdomain']));
+        $sSubdomainName = implode('\\', StringUtils::ucfirstStrings($aRequest['subdomain']));
 
-        if (!isset($aRouting['routing']['apps'][$sAppName])) {
-            $sAppName = $aRouting['routing']['defaultApp'];
+        if (!isset($this->aConfig['routing']['subdomains'][$sSubdomainName])) {
+            $sSubdomainName = $this->aConfig['routing']['defaultSubdomain'];
         }
-        $aApp = $aRouting['routing']['apps'][$sAppName];  
+        $aApp = $this->aConfig['routing']['subdomains'][$sSubdomainName];
         
-        $sAppPath = 'Siegelion\Application\\'.$sAppName.'\App';
+        $sAppPath = 'Siegelion\Application\\'.$aApp['app'].'\App';
         $oApp = new $sAppPath();
         $oApp->run();
-
+        
+        $sAction = 'Siegelion\Application\\'.$aApp['app'].'\Action\\'.$aApp['defaultAction'];
         $aRoutes = Router::getRoutes();
         if (isset($aRoutes[$aRequest['url']])) {
-            $sDefaultDelegate = 'Siegelion\Application\\'.$sAppName.'\Delegate\\'.$aRoutes[$aRequest['url']];
-            $delegate = new $sDefaultDelegate($sAppName, $aApp['view']);
-            echo $delegate->showPage();
+            $sAction = 'Siegelion\Application\\'.$aApp['app'].'\Action\\'.$aRoutes[$aRequest['url']];
         }
+        $action = new $sAction($aApp['app'], $aApp['view']);
+        echo $action->index();
     }
 
     public function httpResponse() {
-        $aHttpOptions = JsonUtils::loadJson(PATH_SYS.'Config/http.json');
-        $oResponse = new Response($aHttpOptions['response']);
+        $oResponse = new Response($this->aConfig['http']['response']);
         $oResponse->headerBuilder();
     }
 }

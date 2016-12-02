@@ -1,6 +1,27 @@
 {
+    "name": "siegelion/siegelion",
+    "type": "library",
+    "description": "A Lightweight PHP Framework based on Enterprise Architecture",
+    "keywords": [
+        "lightweight",
+        "framwork", 
+        "Enterprise Architecture"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Wei Li", 
+            "email": "liweiwebdesign@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Siegelion\\": "src/Siegelion"
+        }
+    },
     "require": {
         "phpunit/phpunit": "^5.5",
-        "psr/log": "^1.0"
+        "psr/log": "^1.0",
+        "doctrine/orm": "^2.5"
     }
 }

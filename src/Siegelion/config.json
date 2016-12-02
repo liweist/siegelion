@@ -1,0 +1,37 @@
+{
+    "routing": {
+        "defaultSubdomain": "www",
+        "subdomains": {
+            "www": {
+                "app": "Portal",
+                "defaultAction": "Home",
+                "view": {
+                    "theme": "default",
+                    "baseHtml": "base.html"
+                }
+            },
+            "api": {
+                "app": "Api",
+                "defaultAction": "Home",
+                "view": {
+                    "theme": "default",
+                    "baseHtml": "base.html"
+                }
+            }
+        }
+    },
+    "http": {
+        "response": {
+            "crossOriginDomain": "http://api.fw2.local"
+        }
+    },
+    "database": {
+        "driver": "pdo_mysql",
+        "host": "localhost",
+        "port": "3306",
+        "user": "",
+        "password": "",
+        "dbname": "",
+        "charset": "UTF-8"
+    }
+}

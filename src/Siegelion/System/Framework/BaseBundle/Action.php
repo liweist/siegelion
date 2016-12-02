@@ -4,7 +4,7 @@ namespace Siegelion\System\Framework\BaseBundle;
 use Siegelion\System\Framework\UtilityBundle\StringUtils;
 use Siegelion\System\Exception\FileDoesNotExistException;
 
-class Delegate
+class Action
 {
     public $sAppName;
     public $sViewTheme;

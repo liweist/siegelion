@@ -5,7 +5,7 @@ class Router
 {
     public static $routes = array();
 
-    public static function setDelegate($sUrl, $sName)
+    public static function setAction($sUrl, $sName)
     {
         self::$routes[$sUrl] = $sName;
     }

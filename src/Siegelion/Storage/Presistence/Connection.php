@@ -2,26 +2,19 @@
 namespace Siegelion\Storage\Presistence;
 
 use Siegelion\Storage\Presistence\Exception\DBConnectionException;
+use Siegelion\System\Framework\UtilityBundle\JsonUtils;
+use Doctrine\DBAL\DriverManager;
 
 class Connection
 {
-    protected $aConfig;
-    protected $oConnect = null;
+    protected static $oConnect = null;
 
-    public function __construct($aConfig = array()) {
-        $this->aConfig = $aConfig;
-    }
-
-    public function bind() {
-        $sDsn = $this->aConfig['dbType']
-            .':host='.$this->aConfig['host']
-            .';dbname='.$this->aConfig['dbName']
-            .';port='.isset($this->aConfig['port']) ? $this->aConfig['port'] : '3306';
+    public static function bind() {
         try {
-            $this->oConnect = new \PDO($sDsn, $this->aConfig['user'], $this->aConfig['pass']);
-            $this->oConnect->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            $this->aConfig = JsonUtils::loadJson(PATH_CONF);
+            return DriverManager::getConnection($this->aConfig['database']);
         } catch (\PDOException $e) {
-            new DBConnectionException($e);
+            throw DBConnectionException($e);
         }
     }
 }
