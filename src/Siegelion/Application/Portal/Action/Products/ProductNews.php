@@ -12,9 +12,4 @@ class ProductNews extends Action implements ActionInterface
             'title' => 'ProductNews'
         ));
     }
-
-    public function get()
-    {
-        
-    }
 }

@@ -1,7 +1,7 @@
 <?php
 namespace Siegelion\System\Framework\UtilityBundle;
 
-use Siegelion\System\Exception\FileDoesNotExistException;
+use Siegelion\System\Exception\SystemException;
 
 class StringUtils 
 {
@@ -19,7 +19,7 @@ class StringUtils
         if (file_exists($sFilename)) {
             $sFile = file_get_contents($sFilename);
         } else {
-            throw new FileDoesNotExistException($sFilename);
+            throw SystemException::fileNotExist($sFilename);
         }
 
         return $sFile;
@@ -56,7 +56,7 @@ class StringUtils
                 $sFile = preg_replace($aPatterns, $aReplacements, $sFile);
             }
         } else {
-            throw new FileDoesNotExistException($sFilename);
+            throw SystemException::fileNotExist($sFilename);
         }
 
         return $sFile;

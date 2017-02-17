@@ -2,7 +2,7 @@
 namespace Siegelion\System\Framework\BaseBundle;
 
 use Siegelion\System\Framework\UtilityBundle\StringUtils;
-use Siegelion\System\Exception\FileDoesNotExistException;
+use Siegelion\System\Exception\SystemException;
 
 class Action
 {
@@ -40,8 +40,8 @@ class Action
             } else {
                 return $sViewPageHtml;
             }
-        } catch (FileDoesNotExistException $e) {
-            
+        } catch (\Exception $e) {
+            throw SystemException::fileNotExist($sFilepathBaseHtml || $sFilepathViewPage, __NAMESPACE__);
         }
     }
 }

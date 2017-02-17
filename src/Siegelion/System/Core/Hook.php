@@ -1,22 +1,20 @@
 <?php
 namespace Siegelion\System\Core;
 
-use Siegelion\System\Exception\ClassDoesNotExistException;
-use Siegelion\System\Exception\MethodDoesNotExistException;
+use Siegelion\System\Exception\SystemException;
 
 class Hook
 {
-    public static function load($sClass, $sNamespace = 'Siegelion\System')
+    public static function load($sClass)
     {
         try {
-            $_sNamespace = $sNamespace.'\Hook\\'.$sClass;
-            if (!class_exists($_sNamespace)) {
-                throw new ClassDoesNotExistException($sClass);
+            if (!class_exists($sClass)) {
+                throw SystemException::classNotExist($sClass, __NAMESPACE__);
             }
-            $oHook = new $_sNamespace();
+            $oHook = new $sClass();
             
             if (!method_exists($oHook, 'run')) {
-                throw new MethodDoesNotExistException('run');
+                throw SystemException::methodNotExist('run', __NAMESPACE__);
             }
             $oHook->run();
         } catch (\Exception $e) {
