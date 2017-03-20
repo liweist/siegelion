@@ -28,8 +28,6 @@ class RequestParser
 		$sRootDomain = array_pop($aHost);
 		$sMainDomain = array_pop($aHost);
 		$this->aRequest['domain'] = $sMainDomain.'.'.$sRootDomain;
-		
-		asort($aHost);
         $this->aRequest['subdomain'] = $aHost;
     }
 
@@ -61,5 +59,7 @@ class RequestParser
 		if (isset($_POST)) {
 			$this->aRequest['post'] = $_POST;
 		}
+
+		$this->aRequest['input'] = file_get_contents('php://input');
 	}
 }
