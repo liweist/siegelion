@@ -1,7 +1,7 @@
 <?php
 namespace Siegelion\System\Framework\HttpBundle;
 
-class RequestParser 
+class RequestParser
 {
     public $aRequest;
 
@@ -34,11 +34,11 @@ class RequestParser
     public function parseUrl()
 	{
 		$aUrl = parse_url($_SERVER['REQUEST_URI']);
-        
+
         $this->aRequest['path'] = array();
 
 		$aPath = explode('/', $aUrl['path']);
-		
+
 		//remove first empty element
 		array_shift($aPath);
 

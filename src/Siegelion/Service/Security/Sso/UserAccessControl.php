@@ -8,13 +8,18 @@ class UserAccessControl
 {
     public function isAdmin()
     {
-        try {
-            $oDataManager = DataManager::bind();
-            $oUser = $oDataManager->getRepository('Siegelion\Storage\Presistence\Entity\User')->findOneByName('TestUser');
-        } catch (\Exception $e) {
-            echo $e->getMessage();
-        }
+        //Use Database: User Entity
+        // try {
+        //     $oDataManager = DataManager::bind();
+        //     $oUser = $oDataManager->getRepository('Siegelion\Storage\Presistence\Entity\User')->findOneByName('TestUser');
+        // } catch (\Exception $e) {
+        //     echo $e->getMessage();
+        // }
 
+        //Use Demo:
+        $oUser  = new User();
+        $oUser->setAccess('admin');
+        
         if ($oUser->getAccess() === 'admin') {
             return true;
         }

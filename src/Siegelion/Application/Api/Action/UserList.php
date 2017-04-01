@@ -4,35 +4,35 @@ namespace Siegelion\Application\Api\Action;
 use Siegelion\System\Framework\BaseBundle\Action;
 use Siegelion\System\Framework\BaseBundle\RestfulActionInterface;
 
-class UserInfo extends Action implements RestfulActionInterface
+class UserList extends Action implements RestfulActionInterface
 {
     public function get($aParams, $aQuery)
     {
-        //echo '[GET] /users/'.$aParams["id"].'?sort='.$aQuery['sort'];
-        echo '[GET] /user/'.$aParams["id"];
+        //echo '[GET] /users?sort='.$aQuery['sort'];
+        echo '[GET] /users';
     }
 
     public function post($aParams, $aQuery, $aRequest)
     {
-        echo '[POST] /user/'.$aParams["id"];
+        echo '[POST] /users';
         var_dump($aRequest); //json
     }
 
     public function put($aParams, $aQuery, $aRequest)
     {
-        echo '[PUT] /user/'.$aParams["id"];
+        echo '[PUT] /users';
         var_dump($aRequest); //json
     }
 
     public function patch($aParams, $aQuery, $aRequest)
     {
-        echo '[PATCH] /user/'.$aParams["id"];
+        echo '[PATCH] /users';
         var_dump($aRequest); //json
     }
 
     public function delete($aParams, $aQuery, $aRequest)
     {
-        echo '[DELETE] /user/'.$aParams["id"];
+        echo '[DELETE] /users';
         var_dump($aRequest); //json
     }
 }

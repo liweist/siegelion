@@ -28,4 +28,13 @@ class Response
     {
         echo $sDoc;
     }
+
+    public function jsonWrite($aData)
+    {
+        $sOutput = '';
+        if (!empty($aData)) {
+            $sOutput = json_encode($aData);
+        }
+        $this->write($sOutput);
+    }
 }

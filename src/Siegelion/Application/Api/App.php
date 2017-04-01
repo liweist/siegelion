@@ -11,6 +11,7 @@ class App extends AppKernel implements AppInterface
 {
     public function run()
     {
-        Router::setAction('/users', 'UserInfo');
+        Router::setAction('/users', 'UserList');
+        Router::setAction('/user/:id', 'UserInfo');
     }
 }

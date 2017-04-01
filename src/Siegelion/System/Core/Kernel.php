@@ -46,21 +46,24 @@ class Kernel
         }
         $oApp = new $sAppPath();
         $oApp->run();
-        
-        $aRoutes = Router::getRoutes();
+
+        $sActionName = Router::match($this->aRequest['url']);
         if (isset($this->aApp['restful']) && $this->aApp['restful']) {
-            if (!isset($this->aRequest['path'][0])) {
+            if ($this->aRequest['url'] == '/') {
                 throw ApplicationException::actionRequired();
             }
-            $sAction = 'Siegelion\Application\\'.$this->aApp['app'].'\Action\\'.$aRoutes['/'.$this->aRequest['path'][0]];
+            if (is_null($sActionName)) {
+                throw ApplicationException::actionNotExist($this->aRequest['url']);
+            }
+            $sAction = 'Siegelion\Application\\'.$this->aApp['app'].'\Action\\'.$sActionName;
             $this->aApp['view'] = null;
         } else {
             $sAction = 'Siegelion\Application\\'.$this->aApp['app'].'\Action\\'.$this->aApp['defaultAction'];
-            if (isset($aRoutes[$this->aRequest['url']])) {
-                $sAction = 'Siegelion\Application\\'.$this->aApp['app'].'\Action\\'.$aRoutes[$this->aRequest['url']];
+            if (!is_null($sActionName)) {
+                $sAction = 'Siegelion\Application\\'.$this->aApp['app'].'\Action\\'.$sActionName;
             }
         }
-        
+
         if (!class_exists($sAction)) {
             throw ApplicationException::actionNotExist($sAction);
         }
@@ -72,27 +75,25 @@ class Kernel
         $oResponse->headerBuilder();
 
         if (isset($this->aApp['restful']) && $this->aApp['restful']) {
-            $aPathGroup = array_chunk($this->aRequest['path'], 2);
             $sCallback = strtolower($this->aRequest['method']);
-            $aUri = array();
-            foreach ($aPathGroup as $iKey => $aGroup) {
-                if ($iKey > 0) {
-                    $sCallback .= ucfirst($aGroup[0]);
-                }
-                if (!isset($aGroup[1])) {
-                    $aGroup[1] = '';
-                }
-                $aUri[$aGroup[0]] = $aGroup[1];
-            }
 
-            $aParams = $this->aRequest['query'];
-            $aBody = JsonUtils::toArray($this->aRequest['input']);
-            $aRoutes = Router::getRoutes();
-            $sAction = 'Siegelion\Application\\'.$this->aApp['app'].'\Action\\'.$aRoutes['/'.$this->aRequest['path'][0]];
+            $sActionName = Router::match($this->aRequest['url']);
+            if (is_null($sActionName)) {
+                throw ApplicationException::actionNotExist($this->aRequest['url']);
+            }
+            $sAction = 'Siegelion\Application\\'.$this->aApp['app'].'\Action\\'.$sActionName;
             if (!method_exists($sAction, $sCallback)) {
                 throw ApplicationException::callbackNotExist($sAction, $sCallback);
             }
-            $oResponse->write($this->oAction->$sCallback($aUri, $aParams, $aBody));
+
+            $aParams = Router::getParams();
+            $aQuery = $this->aRequest['query'];
+            if ($sCallback == 'get') {
+                $oResponse->jsonWrite($this->oAction->get($aParams, $aQuery));
+            } else {
+                $aRequest = JsonUtils::toArray($this->aRequest['input']);
+                $oResponse->jsonWrite($this->oAction->$sCallback($aParams, $aQuery, $aRequest));
+            }
         } else {
             $oResponse->write($this->oAction->index());
         }
