@@ -3,7 +3,7 @@ namespace Siegelion\System\Framework\BaseBundle;
 
 abstract class AbstrackHook
 {
-    public $aQueue = array();
+    public $aQueue = [];
 
     public abstract function initQueue();
 

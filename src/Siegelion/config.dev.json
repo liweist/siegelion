@@ -1,0 +1,64 @@
+{
+    "project": {
+        "domain": "couqiao.me",
+        "description": "oversea shopping web market"
+    },
+    "environment": "dev",
+    "routing": {
+        "defaultSubdomain": "www",
+        "subdomains": {
+            "www": {
+                "app": "Portal",
+                "defaultAction": "Home",
+                "view": {
+                    "theme": "default",
+                    "baseHtml": "base.html"
+                }
+            },
+            "m": {
+                "app": "MobilePortal",
+                "defaultAction": "Home",
+                "view": {
+                    "theme": "default"
+                }
+            },
+            "c": {
+                "app": "CustomerCenter",
+                "defaultAction": "Home",
+                "view": {
+                    "theme": "default"
+                }
+            },
+            "api": {
+                "app": "Api",
+                "restful": true
+            }
+        }
+    },
+    "http": {
+        "keywords": "",
+        "description": "",
+        "response": {
+            "rootDomain": "http://couqiao.me",
+            "crossOriginDomain": [
+                "http://api.couqiao.me",
+                "http://m.couqiao.me",
+                "http://c.couqiao.me"
+            ]
+        }
+    },
+    "database": {
+        "mysql": {
+            "driver": "pdo_mysql",
+            "host": "localhost",
+            "port": "3306",
+            "user": "root",
+            "password": "",
+            "dbname": "couqiao",
+            "charset": "utf8",
+            "driverOptions": {
+                "1002": "SET NAMES utf8"
+            }
+        }
+    }
+}

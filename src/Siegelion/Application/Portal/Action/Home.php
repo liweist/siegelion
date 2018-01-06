@@ -9,7 +9,7 @@ class Home extends Action implements ActionInterface
     public function index()
     {
         return $this->render('home.html', array(
-            'title' => 'Normal user'
+            'tip' => 'Please view this page in Weixin browser！'
         ));
     }
 }

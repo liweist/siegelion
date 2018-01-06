@@ -30,9 +30,11 @@ class Router
             $aPath = explode('/', $sRoute);
             $aFlipPathParams = array_flip(preg_grep('/:.+/', $aPath));
             foreach ($aFlipPathParams as $sParamName => $iRouteIndex) {
-                self::$aParams[substr($sParamName, 1)] = $aUrlPath[$iRouteIndex];
+                if (isset($aUrlPath[$iRouteIndex])) {
+                    self::$aParams[substr($sParamName, 1)] = $aUrlPath[$iRouteIndex];
+                }
             }
-
+            
             $sReplacedRoute = str_replace('/', '\/', $sRoute);
             $sReplacedKey = preg_replace($sParamPattern, '.[^\/]*', $sReplacedRoute);
             if (preg_match('/^'.$sReplacedKey.'$/', $sUrl)) {

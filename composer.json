@@ -22,6 +22,8 @@
     "require": {
         "phpunit/phpunit": "^5.5",
         "psr/log": "^1.0",
-        "doctrine/orm": "^2.5"
+        "doctrine/orm": "^2.5",
+        "mobiledetect/mobiledetectlib": "^2.8",
+        "overtrue/wechat": "^3.2"
     }
 }

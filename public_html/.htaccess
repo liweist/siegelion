@@ -2,6 +2,5 @@
   Options All -Indexes
   RewriteEngine On
   RewriteBase /
-  RewriteCond %{REQUEST_URI} !(js|css)
   RewriteRule ^(.*)$ index.php [QSA,PT,L]
 </IfModule>

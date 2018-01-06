@@ -14,20 +14,41 @@ class JsonUtils
         if (!empty($sJson)) {
             return json_decode($sJson, true);
         }
-        return array();
+        return [];
     }
 
-    public static function toJsonData($aData)
+    public static function parseArray($aArray)
     {
-        return json_encode($aData);
+        return json_encode($aArray);
     }
 
-    public static function toJsonError($iErrorCode, $sErrorMsg)
+    public static function parseObject($oObject)
     {
-        $aError = array(
-            'errorcode' => $iErrorCode,
-            'errormsg' => $sErrorMsg
-        );
+        if (!is_null($oObject)) {
+            $aOutput = get_object_vars($oObject);
+            return json_encode($aOutput);
+        }
+        return null;
+    }
+
+    public static function parseSuccess($aOthers = [])
+    {
+        $aResponse = ['result' => 'success'];
+        if (!empty($aOthers)) {
+            $aResponse = $aResponse + $aOthers;
+        }
+        
+        return json_encode($aResponse);
+    }
+
+    public static function parseError($iErrorCode, $sErrorMsg)
+    {
+        $aError = [
+            'error' => [
+                'code' => $iErrorCode,
+                'msg' => $sErrorMsg
+            ]
+        ];
         return json_encode($aError);
     }
 }

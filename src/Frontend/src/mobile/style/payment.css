@@ -1,0 +1,27 @@
+.sl-payment
+{
+    background-color: #f5f5f5;
+    overflow-y: scroll;
+    padding-bottom: 50px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.sl-payment-fullpage
+{
+    position: fixed;
+    bottom: 00px;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    background-color: #f5f5f5;
+}
+
+.sl-payment-price-currency
+{
+    font-size: 13px;
+}
+
+.sl-payment-totalprice
+{
+    color: #f6325b;
+}

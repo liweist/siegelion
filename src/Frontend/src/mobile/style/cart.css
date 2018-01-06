@@ -1,0 +1,103 @@
+.sl-cart-item-image
+{
+    display: block;
+    width: 50px;
+    height: 50px;
+}
+
+.sl-cart-item-desc-title
+{
+    font-size: 20px;
+}
+
+.sl-cart-item-desc-option
+{
+    font-size: 16px;
+    color: #999;
+}
+
+.sl-cart-item-desc-price
+{
+    font-size: 18px;
+    color: #f6325b;
+}
+
+.sl-cart-item-desc-price-currency
+{
+    color: #f6325b;
+    font-size: 14px;
+}
+
+.sl-cart-item-desc-quantity
+{
+    float: right;
+    font-size: 18px;
+    color: #000;
+}
+
+.sl-bottom-fixed-row
+{
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+}
+
+.sl-bottom-fixed-block
+{
+    display: flex;
+    display: -webkit-flex;
+    flex-grow: 2;
+    height: 49px;
+    border-top: #ddd solid 1px;
+    font-size: 21px;
+}
+
+.sl-bottom-fixed-sm-button
+{
+    display: flex;
+    display: -webkit-flex;
+    flex-grow: 1;
+    height: 50px;
+    background-color: #f6325b;
+    color: #fff;
+    font-size: 22px;
+    line-height: 48px;
+    text-align: center;
+    justify-content: center;
+    -webkit-transition: .2s ease-out;
+    transition: .2s ease-out;
+}
+
+.sl-bottom-fixed-sm-button:active {
+    color: #ccc;
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, .3);
+}
+
+.sl-settle
+{
+    padding: 8px 15px;
+}
+
+.sl-settle-price-currency
+{
+    padding-left: 5px;
+    font-size: 16px;
+    color: #f6325b;
+}
+
+.sl-settle-price
+{
+    color: #f6325b;
+}
+
+.sl-cart-popup-container
+{
+    padding: 10px;
+}
+
+.sl-cart-popup-image
+{
+    display: block;
+    width: 100px;
+    height: 100px;
+}

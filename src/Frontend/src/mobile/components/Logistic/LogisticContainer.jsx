@@ -1,0 +1,128 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
+import * as actions from '../../../common/actions.jsx';
+import {Flex, FlexItem, Dialog, Toast} from 'react-weui';
+
+import Address from './Address.jsx';
+import MobilePhone from './MobilePhone.jsx';
+import Agreements from './Agreements.jsx';
+import ContinusButton from './ContinusButton.jsx';
+
+class LogisticContainer extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            country: '中国',
+            province: '',
+            city: '',
+            area: '',
+            name: '',
+            detail: '',
+            tel: '',
+            identity: '',
+            validName: true,
+            validLocation: true,
+            validDetail: true,
+            validTel: true,
+            loadingTimer: null
+        };
+    }
+
+    onAddressChange(name, city, detail) {
+        let location = city.split(' ');
+        this.setState({
+            name: name,
+            province: location[0],
+            city: location[1],
+            area: location[2],
+            detail: detail
+        });
+    }
+
+    onMobileChange(tel) {
+        this.setState({
+            tel: tel
+        });
+    }
+
+    validate() {
+        let valid = true;
+        this.state.name == '' ? this.setState({validName: valid = false}) : this.setState({validName: true});
+        this.state.province == undefined ? this.setState({validLocation: valid = false}) : this.setState({validLocation: true});
+        this.state.detail == '' ? this.setState({validDetail: valid = false}) : this.setState({validDetail: true});
+        this.state.tel == '' ? this.setState({validTel: valid = false}) : this.setState({validTel: true});
+        return valid;
+    }
+
+
+    showLoading() {
+        this.setState({showLoading: true});
+        this.state.loadingTimer = setTimeout(()=> {
+            this.setState({showLoading: false});
+            this.props.history.push('/order');
+        }, 800);
+    }
+
+    componentWillUnmount() {
+        this.state.loadingTimer && clearTimeout(this.state.loadingTimer);
+    }
+
+    render() {
+        return (
+            <div>
+                <Flex>
+                    <FlexItem>
+                        <div style={{backgroundColor: '#f5f5f5', fontSize: '25px', padding: '15px'}}>填写物流信息</div>
+                    </FlexItem>
+                </Flex>
+                <Flex style={{paddingBottom: '100px'}}>
+                    <FlexItem>
+                        <Address 
+                            onAddressChange={(name, city, detail) => this.onAddressChange(name, city, detail)}
+                            validateName={this.state.validName}
+                            validateLocation={this.state.validLocation}
+                            validateDetail={this.state.validDetail}
+                        />
+                        <MobilePhone 
+                            onMobileChange={(tel) => this.onMobileChange(tel)}
+                            validate={this.state.validTel}
+                        />
+                    </FlexItem>
+                </Flex>
+                <Flex>
+                    <FlexItem>
+                        <ContinusButton continus={() => {
+                            if (this.validate()) {
+                                this.showLoading();
+                                this.props.addAddress({
+                                    location: {
+                                        country: this.state.country,
+                                        province: this.state.province,
+                                        city: this.state.city,
+                                        area: this.state.area,
+                                        detail: this.state.detail
+                                    },
+                                    name: this.state.name,
+                                    tel: this.state.tel
+                                });
+                            }
+                        }}/>
+                    </FlexItem>
+                </Flex>
+                <Toast icon="loading" show={this.state.showLoading}>保存中...</Toast>
+            </div>
+        );
+    }
+}
+
+
+const mapStateToProps = state => ({
+    addAddressResult: state.logisticService.addAddressResult
+});
+
+const mapDispatchToProps = (dispatch, ownProps) => bindActionCreators({
+    addAddress: actions.addAddress
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(LogisticContainer);

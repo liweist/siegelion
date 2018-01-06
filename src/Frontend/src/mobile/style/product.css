@@ -1,0 +1,100 @@
+.sl-product-description {
+    padding: 10px 20px 10px 20px;
+    background-color: #fff;
+}
+
+.sl-product-title {
+    color: #000;
+    font-size: 2rem;
+}
+
+.sl-product-subtitle {
+    font-size: 1rem;
+    color: #999;
+}
+
+.sl-product-price {
+    color: #f6325b;
+}
+
+.sl-product-price-currency {
+    font-size: 1.2rem;
+}
+
+.sl-product-price-number {
+    font-size: 1.6rem;
+}
+
+.sl-product-purchase {
+    padding: 0px 20px 0px 20px;
+    background-color: #fff;
+}
+
+.sl-product-purchase-option-title {
+    color: #999;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.sl-product-details {
+    padding-bottom: 50px;
+}
+
+.sl-bottom-fixed {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    background-color: #fff;
+}
+
+.sl-bottom-fixed-button {
+    height: 50px;
+    background-color: #f6325b;
+    margin-left: 180px;
+    color: #fff;
+    font-size: 22px;
+    line-height: 48px;
+    text-align: center;
+    display: block;
+    -webkit-transition: .2s ease-out;
+    transition: .2s ease-out;
+}
+
+.sl-bottom-fixed-button:active {
+    color: #ccc;
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, .3);
+}
+
+.sl-bottom-fixed-button-disabled {
+    background-color: #ccc;
+}
+
+.sl-bottom-fixed-button-sending {
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, .3);
+}
+
+.sl-bottom-fixed-subbutton {
+    width: 59px;
+    height: 49px;
+    float: left;
+    display: block;
+    border-top: #ddd solid 1px;
+    border-right: #ddd solid 1px;
+}
+
+.sl-bottom-fixed-subbutton-container
+{
+    position: relative;
+    display: block;
+    width: 27px;
+    height: 27px;
+    margin: 11px 16px;
+}
+
+.sl-bottom-fixed-subbutton-image
+{
+    position: relative;
+    display: block;
+    width: 25px;
+    height: 25px;
+}

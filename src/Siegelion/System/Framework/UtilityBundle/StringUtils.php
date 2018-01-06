@@ -37,7 +37,7 @@ class StringUtils
      * @throws System\Exception\FileDoesNotExistException
      * @return string File string
      */
-    public static function templateReplace($sFilename, $aReplaces = array(), $sReplaceBeginSign = '{', $sReplaceEndSign = '}') 
+    public static function templateReplace($sFilename, $aReplaces = [], $sReplaceBeginSign = '{', $sReplaceEndSign = '}') 
     {
         $sFile = '';
 

@@ -1,0 +1,46 @@
+.sl-cart-item-image
+{
+    display: block;
+    width: 70px;
+    height: 70px;
+}
+
+.sl-cart-item-desc-title
+{
+    font-size: 20px;
+}
+
+.sl-cart-item-desc-option
+{
+    font-size: 16px;
+    color: #999;
+}
+
+.sl-cart-item-desc-price
+{
+    font-size: 18px;
+    color: #f6325b;
+}
+
+.sl-cart-item-desc-price-currency
+{
+    color: #f6325b;
+    font-size: 14px;
+}
+
+.sl-cart-item-desc-quantity
+{
+    float: right;
+    font-size: 18px;
+    color: #000;
+}
+
+.sl-payment-price-currency
+{
+    font-size: 13px;
+}
+
+.sl-payment-totalprice
+{
+    color: #f6325b;
+}

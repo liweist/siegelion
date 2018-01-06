@@ -11,7 +11,7 @@ class Action
     public $sViewTheme;
     public $sViewBaseHtml;
 
-    public function __construct($sAppName, $aViewOptions = array())
+    public function __construct($sAppName, $aViewOptions = [])
     {
         $this->sAppName = $sAppName;
 
@@ -23,7 +23,7 @@ class Action
         }
     }
 
-    public function render($sViewPage, $aReplaces = array(), $sViewBaseHtml = '')
+    public function render($sViewPage, $aReplaces = [], $sViewBaseHtml = '')
     {
         if (!empty($sViewBaseHtml)) {
             $this->sViewBaseHtml = $sViewBaseHtml;
@@ -31,7 +31,7 @@ class Action
 
         $sFilepathDir = PATH_APP.$this->sAppName.'/View/';
         $sFilepathBaseHtml = $sFilepathDir.$this->sViewBaseHtml;
-        if (!file_exists($sFilepathBaseHtml)) {
+        if (!is_null($this->sViewBaseHtml) && !file_exists($sFilepathBaseHtml)) {
             throw ApplicationException::viewBaseNotExist($sFilepathBaseHtml);
         }
         $sFilepathViewPage = $sFilepathDir.$this->sViewTheme.'/'.$sViewPage;
@@ -41,12 +41,23 @@ class Action
         $sViewPageHtml = StringUtils::templateReplace($sFilepathViewPage, $aReplaces);
         
         $aConfig = JsonUtils::loadJson(PATH_CONF);
-        if (null !== $this->sViewBaseHtml) {
+        if (!is_null($this->sViewBaseHtml)) {
             return StringUtils::templateReplace($sFilepathBaseHtml, array(
                 '%body%' => $sViewPageHtml
             ));
         } else {
             return $sViewPageHtml;
         }
+    }
+
+    public function renderHtml($sViewPage, $aReplaces = [])
+    {
+        $sFilepathDir = PATH_APP.$this->sAppName.'/View/';
+        $sFilepathViewPage = $sFilepathDir.'/'.$sViewPage;
+        if (!file_exists($sFilepathViewPage)) {
+            throw ApplicationException::viewPageNotExist($sFilepathViewPage);
+        }
+        $sViewPageHtml = StringUtils::templateReplace($sFilepathViewPage, $aReplaces);
+        return $sViewPageHtml;
     }
 }

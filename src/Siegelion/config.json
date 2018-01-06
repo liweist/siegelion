@@ -1,4 +1,9 @@
 {
+    "project": {
+        "domain": "couqiao.me",
+        "description": "oversea shopping web market"
+    },
+    "environment": "prod",
     "routing": {
         "defaultSubdomain": "www",
         "subdomains": {
@@ -10,6 +15,20 @@
                     "baseHtml": "base.html"
                 }
             },
+            "m": {
+                "app": "MobilePortal",
+                "defaultAction": "Home",
+                "view": {
+                    "theme": "default"
+                }
+            },
+            "c": {
+                "app": "CustomerCenter",
+                "defaultAction": "Home",
+                "view": {
+                    "theme": "default"
+                }
+            },
             "api": {
                 "app": "Api",
                 "restful": true
@@ -17,16 +36,29 @@
         }
     },
     "http": {
+        "keywords": "",
+        "description": "",
         "response": {
-            "crossOriginDomain": "http://api.siegelion.local"
+            "rootDomain": "http://couqiao.me",
+            "crossOriginDomain": [
+                "http://api.couqiao.me",
+                "http://m.couqiao.me",
+                "http://c.couqiao.me"
+            ]
         }
     },
     "database": {
-        "driver": "pdo_mysql",
-        "host": "localhost",
-        "port": "3306",
-        "user": "root",
-        "password": "",
-        "dbname": "siegelion"
+        "mysql": {
+            "driver": "pdo_mysql",
+            "host": "localhost",
+            "port": "3306",
+            "user": "couqiao",
+            "password": "cqdb@prod",
+            "dbname": "couqiao",
+            "charset": "utf8",
+            "driverOptions": {
+                "1002": "SET NAMES utf8"
+            }
+        }
     }
 }

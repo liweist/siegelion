@@ -1,7 +1,13 @@
 # SiegeLion Framework
 ### A Lightweight PHP Framework based on Enterprise Architecture
-- Demo: Easy to create Router and Action like design a business process
+- Design and planning a web application like Enterprise Architecture
 - Use Doctrine as ORM
+- Reference from NodeJS Express, Java Servlet
+- Code easy and clear understanding
+- Pre-defined RESTful API Module and router
+- Support muilt-subdomain application in one framework and share service components
+- Hook for AOP
+- Demo Project(Couqiao Weixin Online Market): Easy to create Router and Action like design a business process
 
 ### Architecture
 
@@ -21,5 +27,85 @@ Data entities will store here.
 
 Basic functions, utilities, runtime and router.
 
+### Requirement
+
+`php >= 5.6`
+
+### Install
+
+```bash
+composer install
+```
+
+### Usage
+
+Easy to bind a route url path to defined Action, support sign `:id` as parameter pass into Action
+```php
+class App extends AppKernel implements AppInterface
+{
+    public function run()
+    {
+        Router::setAction('/login', 'UserLogin');
+        Router::setAction('/user/:id', 'UserInfo');
+    }
+}
+```
+
+```php
+class UserInfo extends Action implements RestfulActionInterface
+{   
+    //[GET] /user/:id
+    public function get($params, $query)
+    {
+        return $params['id'];  // will echo the content of parameter id from url
+    }
+
+    //...
+}
+```
+
+Easy render template
+```html
+<p>{title}</p>
+```
+
+```php
+class Home extends Action implements ActionInterface
+{
+    public function index()
+    {
+        $replaces = [
+            'title' => 'Siegelion demo'
+        ];
+        return $this->render('home.html', $replaces);
+    }
+}
+```
+
+### Demo Project (Couqiao Weixin Online Market)
+
+**Tech Stack**
+- Frontend: React + Redux + Webpack
+
+**Initial Setting**
+- Frontend initial setting (src -> Frontend)
+
+```bash
+npm init
+npm start
+```
+
+- Config file (src -> Siegelion)
+
+1. Edit your own database configuration in config.json
+
+- Weixin connection (src -> Siegelion -> Service)
+
+1. OAuth -> WxLogin.php : Edit your weixin login configuration
+2. Payment -> WxPay.php : Edit your weixin payment configuration
+
+**Enjoy your coding**
+
 ---
-By Wei Li (liweist.william@gmail.com)
+Copyright (c) 2016 Wei Li (liweist.william@gmail.com)
+MIT Licence

@@ -1,7 +1,7 @@
 <?php
 namespace Siegelion\System\Framework\HttpBundle;
 
-class RequestParser
+class RequestParser 
 {
     public $aRequest;
 
@@ -20,6 +20,7 @@ class RequestParser
 		$this->aRequest['method'] = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : '';
 		$this->aRequest['remoteAddress'] = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
 		$this->aRequest['userAgent'] = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
+		$this->aRequest['origin'] = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
     }
 
     public function parseHost()
@@ -34,11 +35,11 @@ class RequestParser
     public function parseUrl()
 	{
 		$aUrl = parse_url($_SERVER['REQUEST_URI']);
-
-        $this->aRequest['path'] = array();
+        
+        $this->aRequest['path'] = [];
 
 		$aPath = explode('/', $aUrl['path']);
-
+		
 		//remove first empty element
 		array_shift($aPath);
 

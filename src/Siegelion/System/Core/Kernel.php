@@ -25,7 +25,7 @@ class Kernel
             $this->httpRequest();
             $this->httpResponse();
         } catch (\Exception $e) {
-            echo $e->getMessage();
+            echo $e;
         }
     }
 
@@ -63,7 +63,7 @@ class Kernel
                 $sAction = 'Siegelion\Application\\'.$this->aApp['app'].'\Action\\'.$sActionName;
             }
         }
-
+        
         if (!class_exists($sAction)) {
             throw ApplicationException::actionNotExist($sAction);
         }
@@ -71,28 +71,34 @@ class Kernel
     }
 
     public function httpResponse() {
-        $oResponse = new Response($this->aConfig['http']['response']);
+        $aResponseOptions = $this->aConfig['http']['response'];
+        $aResponseOptions['origin'] = $this->aRequest['origin'];
+        $oResponse = new Response($aResponseOptions);
         $oResponse->headerBuilder();
 
         if (isset($this->aApp['restful']) && $this->aApp['restful']) {
             $sCallback = strtolower($this->aRequest['method']);
-
+            
             $sActionName = Router::match($this->aRequest['url']);
             if (is_null($sActionName)) {
                 throw ApplicationException::actionNotExist($this->aRequest['url']);
             }
             $sAction = 'Siegelion\Application\\'.$this->aApp['app'].'\Action\\'.$sActionName;
             if (!method_exists($sAction, $sCallback)) {
-                throw ApplicationException::callbackNotExist($sAction, $sCallback);
-            }
-
-            $aParams = Router::getParams();
-            $aQuery = $this->aRequest['query'];
-            if ($sCallback == 'get') {
-                $oResponse->jsonWrite($this->oAction->get($aParams, $aQuery));
+                if ($sCallback == 'options') {
+                    $oResponse->allowHeader();
+                } else {
+                    throw ApplicationException::callbackNotExist($sAction, $sCallback);
+                }
             } else {
-                $aRequest = JsonUtils::toArray($this->aRequest['input']);
-                $oResponse->jsonWrite($this->oAction->$sCallback($aParams, $aQuery, $aRequest));
+                $aParams = Router::getParams();
+                $aQuery = $this->aRequest['query'];
+                if ($sCallback == 'get') {
+                    $oResponse->write($this->oAction->get($aParams, $aQuery));
+                } else {
+                    $aRequest = JsonUtils::toArray($this->aRequest['input']);
+                    $oResponse->write($this->oAction->$sCallback($aParams, $aQuery, $aRequest));
+                }
             }
         } else {
             $oResponse->write($this->oAction->index());
