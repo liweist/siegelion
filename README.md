@@ -86,6 +86,7 @@ class Home extends Action implements ActionInterface
 
 **Tech Stack**
 - Frontend: React + Redux + Webpack
+- Database: MySQL + Redis(Session Cache)
 
 **Initial Setting**
 - Frontend initial setting (src -> Frontend)

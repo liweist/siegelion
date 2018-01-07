@@ -1,6 +1,7 @@
 <?php
 namespace Siegelion\System\Framework\HttpBundle;
 
+use Siegelion\System\Framework\UtilityBundle\JsonUtils;
 use Siegelion\System\Exception\SessionException;
 
 class SessionManager implements \SessionHandlerInterface
@@ -14,14 +15,19 @@ class SessionManager implements \SessionHandlerInterface
         ini_set('session.name', 'couqiao');
         ini_set('session.cookie_path', '/');
         ini_set('session.cookie_domain', '.couqiao.me');
-
+        
         if (!class_exists('redis', false)) {
             throw SessionException::redisNotInstalled();
         }
 
+        $aConfig = JsonUtils::loadJson(PATH_CONF);
+
         try {
             $this->oRedis = new \Redis();
-            $this->oRedis->connect('127.0.0.1', 6379);
+            $this->oRedis->connect(
+                $aConfig['database']['redis']['host'],
+                $aConfig['database']['redis']['port']
+            );
             session_set_save_handler($this);
         } catch (\RedisException $e) {
             throw \SessionException::connectRedisError();
